@@ -7,4 +7,5 @@
 /test_cases
 *.exe
 .cursorrules
-.clang-format
+*.clang-format
+*.ps1
