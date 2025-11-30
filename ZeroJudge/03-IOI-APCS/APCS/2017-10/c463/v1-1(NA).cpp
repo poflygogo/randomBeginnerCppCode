@@ -14,32 +14,32 @@ int main() {
     std::vector<int> parents(n + 1);
     std::iota(parents.begin(), parents.end(), 0);
     std::vector<int> leaves;  // record leaf nodes
-    for (int i = 1; i <= n; ++i) {
+    for (int parent = 1; parent <= n; ++parent) {
         int k;
         std::cin >> k;
         if (k == 0) {
-            leaves.push_back(i);
+            leaves.push_back(parent);
             continue;
         }
         while (k--) {
-            int v;
-            std::cin >> v;
-            parents[v] = i;
+            int child;
+            std::cin >> child;
+            parents[child] = parent;
         }
     }
 
     // dfs
     // from leaves to root
-    std::vector<int> height(n + 1, 0);
+    std::vector<int> heights(n + 1, 0);
     for (int node : leaves) {
         node = parents[node];
         int cnt = 0;
         while (true) {
             cnt++;
-            if (height[node] >= cnt) {
+            if (heights[node] >= cnt) {
                 break;
             }
-            height[node] = cnt;
+            heights[node] = cnt;
             if (parents[node] == node) {
                 break;
             }
@@ -47,7 +47,7 @@ int main() {
         }
     }
 
-    std::cout << std::distance(height.begin(), std::max_element(height.begin(), height.end()))
+    std::cout << std::distance(heights.begin(), std::max_element(heights.begin(), heights.end()))
               << '\n'
-              << std::accumulate(height.begin(), height.end(), 0);
+              << std::accumulate(heights.begin(), heights.end(), 0);
 }
